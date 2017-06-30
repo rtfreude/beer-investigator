@@ -11,7 +11,7 @@ const fetch = require('./fetch-fill')
 //     "node": "6.10.0",
 //     "npm": "3.10.x"
 //   },
-// Setup logger
+// Setup loggerhh
 // app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
 // Serve static assets
