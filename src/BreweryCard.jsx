@@ -59,7 +59,7 @@ class BreweryCard extends Component {
 
   beersCall() {
     //make call to server
-    console.log('brewId: ', this.state.breweryId)
+
     return $.get('/brewerybeers',{breweryId: this.state.breweryId})
       .then((data) => {
        console.log('brewery Beer Call:', data)
