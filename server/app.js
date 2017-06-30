@@ -73,7 +73,7 @@ console.log(API_KEY)
 app.get('/breweries', (req, res) => {
   let userReq = req.query.breweryRequest;
 
-  let url = 'http://api.brewerydb.com/v2/breweries?key=' + API_ KEY + '&name=' + userReq;
+  let url = 'http://api.brewerydb.com/v2/breweries?key=' + API_KEY + '&name=' + userReq;
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
     console.log('serverbrew:', parsedBody)
