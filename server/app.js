@@ -4,8 +4,8 @@ const path = require('path');
 const request = require('request')
 
 const app = express();
-const API_KEY = process.env.API_KEY || "138f1ab3930fca15582cd297958c244a";
-
+const API_KEY = process.env.API_KEY
+// || "138f1ab3930fca15582cd297958c244a";
 const fetch = require('./fetch-fill')
 
 
