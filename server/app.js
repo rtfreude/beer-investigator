@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('request')
 
 const app = express();
-const API_KEY = "138f1ab3930fca15582cd297958c244a";
+const API_KEY = process.env.API_KEY || "138f1ab3930fca15582cd297958c244a";
 
 const fetch = require('./fetch-fill')
 
@@ -18,6 +18,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 //used to search beers by name and return certain data
 app.get('/beername', (req, res) => {
   let userReq = req.query.beerRequest;
+
   var url = 'http://api.brewerydb.com/v2/beers?key=' + API_KEY+ '&name='+ userReq;
 
   request(url, function(err, resp, body) {
