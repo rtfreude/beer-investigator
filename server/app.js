@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('request')
 
 const app = express();
-
+const API_KEY = process.env.API_KEY || "138f1ab3930fca15582cd297958c244a";
 const fetch = require('./fetch-fill')
 
 // "engines": {
@@ -20,8 +20,8 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 //used to search beers by name and return certain data
 app.get('/beername', (req, res) => {
   let userReq = req.query.beerRequest;
-  let key = req.query.key
-  var url = 'http://api.brewerydb.com/v2/beers?key=' + key + '&name='+ userReq;
+
+  var url = 'http://api.brewerydb.com/v2/beers?key=' + API_KEY + '&name='+ userReq;
 
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
@@ -33,14 +33,13 @@ app.get('/beername', (req, res) => {
 app.get('/search', (req, res) => {
   console.log(req.query.beerRequest)
   let userReq = req.query.inputValue; //hardcoded search criteria, I would Exptect 'Naughty 90' to be one of the results
-  let key = req.query.key;
   let allBeers = [];  //array to be returned to the user
-
+console.log(API_KEY)
   const getAllBeers = function(page) {
     let pageNum = page || 1;
     let beers = [];
 
-    let url = 'http://api.brewerydb.com/v2/search?key=' + key + '&q=' + userReq + '&type=beer&p=' + pageNum;
+    let url = 'http://api.brewerydb.com/v2/search?key=' + API_KEY + '&q=' + userReq + '&type=beer&p=' + pageNum;
 
     fetch(url)
       .then(res => res.json())
@@ -76,8 +75,8 @@ app.get('/search', (req, res) => {
 
 app.get('/breweries', (req, res) => {
   let userReq = req.query.breweryRequest;
-  let key = req.query.key
-  let url = 'http://api.brewerydb.com/v2/breweries?key=' + key + '&name=' + userReq;
+
+  let url = 'http://api.brewerydb.com/v2/breweries?key=' + API_KEY + '&name=' + userReq;
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
     console.log('serverbrew:', parsedBody)
@@ -87,8 +86,8 @@ app.get('/breweries', (req, res) => {
 
 app.get('/brewerybeers', (req, res) => {
   let userReq = req.query.breweryId;
-  let key = req.query.key
-  let url = 'http://api.brewerydb.com/v2/brewery/'+ userReq +'/beers?key=' + key;
+
+  let url = 'http://api.brewerydb.com/v2/brewery/'+ userReq +'/beers?key=' + API_KEY
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
     console.log('brewery beers:', parsedBody)

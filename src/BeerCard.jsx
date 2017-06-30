@@ -3,7 +3,8 @@ import $                    from 'jquery';
 import { AutoComplete }     from 'material-ui';
 import getMuiTheme          from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider     from 'material-ui/styles/MuiThemeProvider';
-const API_KEY = process.env.API_KEY || "138f1ab3930fca15582cd297958c244a"
+
+
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 
@@ -56,7 +57,7 @@ class BeerCard extends Component {
 
     if(this.state.inputValue !== '') {
 
-      return $.get('/search', {inputValue: self.state.inputValue, key: API_KEY})
+      return $.get('/search', {inputValue: self.state.inputValue})
         .then((data) => {
           //console.log('performSearch', data)
           let retrievedSearchTerms = data;
@@ -71,7 +72,7 @@ class BeerCard extends Component {
 
   beerCall() {
 
-    return $.get('/beername', {beerRequest: this.state.inputValue, key: API_KEY})
+    return $.get('/beername', {beerRequest: this.state.inputValue})
     .then((data) => {
       //console.log('beerCall', data)
 
