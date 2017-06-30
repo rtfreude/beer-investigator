@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-
 import BreweryBeerCard from './BreweryBeerCard.jsx'
+const API_KEY = process.env.API_KEY || "138f1ab3930fca15582cd297958c244a"
 
 class BreweryCard extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class BreweryCard extends Component {
   breweryCall(userInput) {
     //make call to server
     const self = this;
-    return $.get('/breweries',{breweryRequest: userInput})
+    return $.get('/breweries',{breweryRequest: userInput, key: API_KEY})
       .then((data) => {
       console.log('breweryCall:', data)
 
@@ -60,7 +60,7 @@ class BreweryCard extends Component {
   beersCall() {
     //make call to server
     console.log('brewId: ', this.state.breweryId)
-    return $.get('/brewerybeers',{breweryId: this.state.breweryId})
+    return $.get('/brewerybeers',{breweryId: this.state.breweryId, key: API_KEY})
       .then((data) => {
        console.log('brewery Beer Call:', data)
 
