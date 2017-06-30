@@ -3,9 +3,6 @@ import $                    from 'jquery';
 import { AutoComplete }     from 'material-ui';
 import getMuiTheme          from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider     from 'material-ui/styles/MuiThemeProvider';
-import JSONP                from 'jsonp'
-
-const API_KEY = "138f1ab3930fca15582cd297958c244a";
 
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
