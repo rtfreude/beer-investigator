@@ -18,7 +18,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 //used to search beers by name and return certain data
 app.get('/beername', (req, res) => {
   let userReq = req.query.beerRequest;
-
+  console.log(API_KEY)
   var url = 'http://api.brewerydb.com/v2/beers?key=' + API_KEY+ '&name='+ userReq;
 
   request(url, function(err, resp, body) {
@@ -32,7 +32,7 @@ app.get('/search', (req, res) => {
   console.log(req.query.beerRequest)
   let userReq = req.query.inputValue; //hardcoded search criteria, I would Exptect 'Naughty 90' to be one of the results
   let allBeers = [];  //array to be returned to the user
-
+console.log(API_KEY)
   const getAllBeers = function(page) {
     let pageNum = page || 1;
     let beers = [];
@@ -74,7 +74,7 @@ app.get('/search', (req, res) => {
 app.get('/breweries', (req, res) => {
   let userReq = req.query.breweryRequest;
   let url = 'http://api.brewerydb.com/v2/breweries?key=' + API_KEY+ '&name=' + userReq;
-
+console.log(API_KEY)
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
     console.log('serverbrew:', parsedBody)
