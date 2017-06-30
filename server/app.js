@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('request')
 
 const app = express();
-const API_KEY = process.env.API_KEY
+//const API_KEY = process.env.API_KEY
 // || "138f1ab3930fca15582cd297958c244a";
 const fetch = require('./fetch-fill')
 
@@ -19,7 +19,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.get('/beername', (req, res) => {
   let userReq = req.query.beerRequest;
   console.log(API_KEY)
-  var url = 'http://api.brewerydb.com/v2/beers?key=' + API_KEY+ '&name='+ userReq;
+  var url = 'http://api.brewerydb.com/v2/beers?key=' + KEY + '&name='+ userReq;
 
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
@@ -36,8 +36,8 @@ console.log(API_KEY)
   const getAllBeers = function(page) {
     let pageNum = page || 1;
     let beers = [];
-
-    let url = 'http://api.brewerydb.com/v2/search?key=' + API_KEY + '&q=' + userReq + '&type=beer&p=' + pageNum;
+    const KEY = process.env.API_KEY
+    let url = 'http://api.brewerydb.com/v2/search?key=' + KEY + '&q=' + userReq + '&type=beer&p=' + pageNum;
 
     fetch(url)
       .then(res => res.json())
@@ -73,8 +73,8 @@ console.log(API_KEY)
 
 app.get('/breweries', (req, res) => {
   let userReq = req.query.breweryRequest;
-  let url = 'http://api.brewerydb.com/v2/breweries?key=' + API_KEY+ '&name=' + userReq;
-console.log(API_KEY)
+  const KEY = process.env.API_KEY
+  let url = 'http://api.brewerydb.com/v2/breweries?key=' + KEY+ '&name=' + userReq;
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
     console.log('serverbrew:', parsedBody)
@@ -84,8 +84,8 @@ console.log(API_KEY)
 
 app.get('/brewerybeers', (req, res) => {
   let userReq = req.query.breweryId;
-
-  let url = 'http://api.brewerydb.com/v2/brewery/'+ userReq +'/beers?key=' + API_KEY
+const KEY = process.env.API_KEY
+  let url = 'http://api.brewerydb.com/v2/brewery/'+ userReq +'/beers?key=' + KEY
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
     console.log('brewery beers:', parsedBody)
