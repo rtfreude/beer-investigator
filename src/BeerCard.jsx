@@ -23,7 +23,6 @@ class BeerCard extends Component {
       dataSource : [],
       inputValue : 'Naughty 90'
     }
-    //this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
   }
@@ -40,11 +39,6 @@ class BeerCard extends Component {
   componentDidMount() {
     this.beerCall(this.state.inputValue);
   }
-
-  // handleInputChange(event) {
-  //   let input = event.target.value;
-  //   this.setState({beerName: input})
-  // }
 
   handleClick () {
     //console.log('input value: ', this.state.inputValue)

@@ -30,12 +30,12 @@ class BreweryCard extends Component {
 
   handleInputChange(event) {
     let input = event.target.value;
-    console.log('handleinput: ', input)
+    //console.log('handleinput: ', input)
     this.setState({breweryName: input})
   }
 
   handleClick () {
-    console.log('handleclicked')
+    //console.log('handleclicked')
     this.componentDidMount();
   }
 
@@ -44,7 +44,7 @@ class BreweryCard extends Component {
     const self = this;
     return $.get('/breweries',{breweryRequest: userInput})
       .then((data) => {
-      console.log('breweryCall:', data)
+      //console.log('breweryCall:', data)
 
       this.setState({
         breweryName: '',
@@ -66,7 +66,7 @@ class BreweryCard extends Component {
 
     return $.get('/brewerybeers',{breweryId: this.state.breweryId})
       .then((data) => {
-       console.log('brewery Beer Call:', data)
+       //console.log('brewery Beer Call:', data)
       this.setState({
         breweryBeerArray: data.data
       })

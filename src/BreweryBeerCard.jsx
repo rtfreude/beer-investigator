@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class BreweryBeerCard extends Component {
   render() {
-    console.log('beer card props', this.props.breweryBeerArray)
+    //console.log('beer card props', this.props.breweryBeerArray)
     return (
       <div className="brewer-beer-card-main">
         <p className="brewery-beer-heading">Brewery Beer Offerings</p>
