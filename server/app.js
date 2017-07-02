@@ -7,11 +7,6 @@ const app = express();
 const API_KEY = require('./secrets')
 const fetch = require('./fetch-fill')
 
-// "engines": {
-//     "node": "6.10.0",
-//     "npm": "3.10.x"
-//   },
-// Setup loggerhh
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
 // Serve static assets
