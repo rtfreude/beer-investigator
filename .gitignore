@@ -1,1 +1,4 @@
+# Modules
 node_modules
+# Ignore API keys
+server/secret.js
