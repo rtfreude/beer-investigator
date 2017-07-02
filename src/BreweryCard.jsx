@@ -15,7 +15,9 @@ class BreweryCard extends Component {
       description: "It started with Jeff and Suzy. Jeff had mastered the art of sour-mashing beer and thought the scene was ready for it. Suzy was convinced the town needed a brewery as playful as it was innovative. They put Jessica in charge of making the beer look as good as it tasted, and Davy in charge of developing recipes.The result is Blue Owl. It’s our thing, but we’d like it to feel like your thing, too. Our aim is to make you feel welcome, whether you’re with us at the tap room or enjoying us in a can or pint glass.So join us, won’t you?",
       breweryId: 'P203ye',
       breweryBeerName: '',
-      breweryBeerStyle: ''
+      breweryBeerStyle: '',
+      breweryBeerLabel: '',
+      breweryBeerArray: []
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -23,6 +25,7 @@ class BreweryCard extends Component {
 
   componentDidMount() {
     this.breweryCall(this.state.breweryName);
+    this.beersCall();
   }
 
   handleInputChange(event) {
@@ -51,6 +54,7 @@ class BreweryCard extends Component {
         brand: data.data[0].brandClassification,
         description: data.data[0].description,
         breweryId:data.data[0].id
+
       })
       self.beersCall()
     })
@@ -62,14 +66,19 @@ class BreweryCard extends Component {
 
     return $.get('/brewerybeers',{breweryId: this.state.breweryId})
       .then((data) => {
-       console.log('brewery Beer Call:', data)
-
+       console.log('brewery Beer Call:', data.data)
+       // console.log('Name: ', data.data[0].name)
+       // console.log('Style: ', data.data[0].style.shortName)
+       // console.log('Label: ', data.data[0].labels.medium)
       this.setState({
         breweryBeerName: data.data[0].name,
-        breweryBeerStyle: data.style
+        breweryBeerStyle: data.data[0].style.shortName,
+        breweryBeerLabel:data.data[0].labels.medium,
+        breweryBeerArray: data.data
       })
     })
   }
+
 
 
   render() {
@@ -111,10 +120,10 @@ class BreweryCard extends Component {
 
         </div>
         <BreweryBeerCard
-          beerName={this.state.displayName}
-          breweryBeerName={this.state.breweryBeerName}
-          breweryBeerStyle={this.state.breweryBeerStyle}
+          breweryBeerArray={this.state.breweryBeerArray}
         />
+
+
       </div>
     </div>
     );
@@ -122,5 +131,4 @@ class BreweryCard extends Component {
 }
 
 export default BreweryCard;
-
 
