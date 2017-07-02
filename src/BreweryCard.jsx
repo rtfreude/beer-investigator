@@ -77,7 +77,7 @@ class BreweryCard extends Component {
 
   render() {
     return (
-      <div className="beer-card">
+      <div className="brewery-card">
         <div className="input-group">
           <input
             type="text"
@@ -100,7 +100,7 @@ class BreweryCard extends Component {
           <p className="beer-type"><i>{this.state.website}</i></p>
           <img className="beer-label" src={this.state.breweryImage} alt="..." />
         </div>
-        <br />
+
         <div className="brewery-stats">
 
             <div className='brewery-single-stat'>
@@ -113,6 +113,7 @@ class BreweryCard extends Component {
             </div>
         </div>
         <BreweryBeerCard
+          className="brewer-beer-container"
           breweryBeerArray={this.state.breweryBeerArray}
         />
       </div>

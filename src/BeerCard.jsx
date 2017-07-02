@@ -117,7 +117,7 @@ class BeerCard extends Component {
           <p className="beer-type"><i>({this.state.beerStyle})</i></p>
           <img className="beer-label" src={this.state.beerImg} alt="..." />
         </div>
-        <br />
+
         <div className="beer-stats">
           <div className='beer-stats-inner'>
             <div className='beer-single-stat'>
