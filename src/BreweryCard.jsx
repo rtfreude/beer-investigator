@@ -25,7 +25,7 @@ class BreweryCard extends Component {
 
   componentDidMount() {
     this.breweryCall(this.state.breweryName);
-    this.beersCall();
+    //this.beersCall();
   }
 
   handleInputChange(event) {
@@ -66,14 +66,8 @@ class BreweryCard extends Component {
 
     return $.get('/brewerybeers',{breweryId: this.state.breweryId})
       .then((data) => {
-       console.log('brewery Beer Call:', data.data)
-       // console.log('Name: ', data.data[0].name)
-       // console.log('Style: ', data.data[0].style.shortName)
-       // console.log('Label: ', data.data[0].labels.medium)
+       console.log('brewery Beer Call:', data)
       this.setState({
-        breweryBeerName: data.data[0].name,
-        breweryBeerStyle: data.data[0].style.shortName,
-        breweryBeerLabel:data.data[0].labels.medium,
         breweryBeerArray: data.data
       })
     })
@@ -117,13 +111,10 @@ class BreweryCard extends Component {
               <p className=""><strong>Description:</strong></p>
               <p className="beer-desc">{this.state.description}</p>
             </div>
-
         </div>
         <BreweryBeerCard
           breweryBeerArray={this.state.breweryBeerArray}
         />
-
-
       </div>
     </div>
     );
