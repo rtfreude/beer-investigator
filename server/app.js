@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('request')
 
 const app = express();
-const API_KEY = require('secret')
+const API_KEY = require('./secrets')
 const fetch = require('./fetch-fill')
 
 // "engines": {

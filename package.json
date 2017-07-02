@@ -2,6 +2,10 @@
   "name": "ryjessriot",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "6.10.0",
+    "npm": "3.10.10"
+  },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "express": "^4.15.3",
