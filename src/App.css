@@ -5,7 +5,6 @@
 }
 
 .beer-card {
-
   margin: 50px;
   display: flex;
   flex-direction: column;
@@ -28,7 +27,6 @@
   color:black;
   display: flex;
   font-size: 2em;
-
 }
 
 .beer-stats {
@@ -70,9 +68,7 @@
 }
 
 .beer-type {
-
   justify-content: center;
-
   color: grey;
   display: flex;
   font-size: 1.25em;
@@ -89,13 +85,10 @@
   font-size: 1em;
 }
 
-
-
 .beer-info {
   display: flex;
   flex-direction: column;
   padding: 25px;
-
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -117,9 +110,7 @@
 }
 
 .beer-label {
-
   border: solid black 2px;
-
   max-width: 100%;
   max-height: 100%;
 }

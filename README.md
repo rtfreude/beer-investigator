@@ -4,7 +4,6 @@
 //start the server
 'node server/index.js'
 
-Note: file will update on each save
 
 
 

@@ -1,11 +1,11 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const request = require('request')
-
+const request = require('request');
 const app = express();
-const API_KEY = require('./secrets')
-const fetch = require('./fetch-fill')
+
+const API_KEY = require('./secrets');
+const fetch = require('./fetch-fill');
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
@@ -25,11 +25,12 @@ app.get('/beername', (req, res) => {
 
 });
 
+//a rough search endpoint used for grabbing autocomplete input--autocomplete needs to be improved
 app.get('/search', (req, res) => {
   console.log(req.query.beerRequest)
   let userReq = req.query.inputValue; //hardcoded search criteria, I would Exptect 'Naughty 90' to be one of the results
   let allBeers = [];  //array to be returned to the user
-console.log(API_KEY)
+
   const getAllBeers = function(page) {
     let pageNum = page || 1;
     let beers = [];
@@ -68,6 +69,7 @@ console.log(API_KEY)
   getAllBeers(1); //start query on page 1
 });
 
+//brewery search
 app.get('/breweries', (req, res) => {
   let userReq = req.query.breweryRequest;
 
@@ -79,6 +81,7 @@ app.get('/breweries', (req, res) => {
   })
 });
 
+//beers at each brewery
 app.get('/brewerybeers', (req, res) => {
   let userReq = req.query.breweryId;
 
