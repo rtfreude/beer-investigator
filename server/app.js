@@ -50,14 +50,12 @@ app.get('/search', (req, res) => {
     }).then(beers => {
       if (!beers.length) {
         var flattened = [].concat.apply([], allBeers); //used to flatten the returned arrays
-        var sort = flattened.sort(function(a,b) {return a-b})
-        res.send(sort);
+        res.send(flattened);
         return;
 
-      } else if (pageNum >= 5) {
+      } else if (pageNum >= 2) {
         var flattened = [].concat.apply([], allBeers);
-        var sort = flattened.sort(function(a,b) {return a-b})
-        res.send(sort);
+        res.send(flattened);
         return;
 
       } else {

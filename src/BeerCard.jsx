@@ -52,9 +52,9 @@ class BeerCard extends Component {
 
       return $.get('/search', {inputValue: self.state.inputValue})
         .then((data) => {
-          //console.log('performSearch', data)
-          let retrievedSearchTerms = data;
-
+          console.log('performSearch', data)
+          let retrievedSearchTerms = data.sort();
+          console.log('sort data', retrievedSearchTerms)
         self.setState({
           dataSource: retrievedSearchTerms
         });
@@ -67,7 +67,7 @@ class BeerCard extends Component {
 
     return $.get('/beername', {beerRequest: this.state.inputValue})
     .then((data) => {
-      //console.log('beerCall', data)
+      console.log('beerCall', data)
 
       let srm = (+data.data[0].style.srmMax+(+data.data[0].style.srmMin))/2;
       let fg = parseFloat((+data.data[0].style.fgMax+(+data.data[0].style.fgMin))/2).toFixed(4);
@@ -109,13 +109,13 @@ class BeerCard extends Component {
         <div className="input-group">
           <MuiThemeProvider muiTheme={getMuiTheme()}>
             <AutoComplete
-              hintText          = "Be careful with spelling..."
+              hintText          = "Input beer..."
               dataSource        = {this.state.dataSource}
               filter            = {AutoComplete.noFilter}
               onTouchTap        = {this.handleClick}
               onUpdateInput     = {this.onUpdateInput}
               onNewRequest      = {this.handleClick}
-              floatingLabelText = "Enter beer name..."
+              floatingLabelText = "Input beer name and hit enter..."
             />
           </MuiThemeProvider>
 
