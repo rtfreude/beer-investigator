@@ -78,18 +78,33 @@ class BeerCard extends Component {
       let srm = (+data.data[0].style.srmMax+(+data.data[0].style.srmMin))/2;
       let fg = parseFloat((+data.data[0].style.fgMax+(+data.data[0].style.fgMin))/2).toFixed(4);
 
-      this.setState({
-        beerName: data.data[0].name,
-        displayName: data.data[0].name,
-        beerDesc: data.data[0].description,
-        beerTaste: data.data[0].style.description,
-        beerImg: data.data[0].labels.medium,
-        beerStyle: data.data[0].style.shortName,
-        beerAbv: data.data[0].abv,
-        srmMax: srm,
-        gravity: fg,
-        ibu: data.data[0].ibu
-      })
+      if(!data.data[0].labels) {
+        this.setState({
+          beerName: data.data[0].name,
+          displayName: data.data[0].name,
+          beerDesc: data.data[0].description,
+          beerTaste: data.data[0].style.description,
+          beerImg: 'beer.jpg',
+          beerStyle: data.data[0].style.shortName,
+          beerAbv: data.data[0].abv,
+          srmMax: srm,
+          gravity: fg,
+          ibu: data.data[0].ibu
+        })
+      } else {
+        this.setState({
+          beerName: data.data[0].name,
+          displayName: data.data[0].name,
+          beerDesc: data.data[0].description,
+          beerTaste: data.data[0].style.description,
+          beerImg: data.data[0].labels.medium,
+          beerStyle: data.data[0].style.shortName,
+          beerAbv: data.data[0].abv,
+          srmMax: srm,
+          gravity: fg,
+          ibu: data.data[0].ibu
+        })
+      }
     });
   }
 
