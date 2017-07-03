@@ -27,7 +27,7 @@ app.get('/beername', (req, res) => {
 
 //a rough search endpoint used for grabbing autocomplete input--autocomplete needs to be improved
 app.get('/searchbeer', (req, res) => {
-  //console.log(req.query.beerRequest)
+  console.log(req.query.inputValue)
   let userReq = req.query.inputValue; //hardcoded search criteria, I would Exptect 'Naughty 90' to be one of the results
   let allBeers = [];  //array to be returned to the user
 

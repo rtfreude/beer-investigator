@@ -9,18 +9,21 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "express": "^4.15.3",
+    "fetch": "^1.1.0",
     "fetch-ponyfill": "^4.0.0",
     "jquery": "^3.2.1",
     "jsonp": "^0.2.1",
     "material-ui": "^0.18.4",
     "morgan": "^1.8.2",
+    "node-fetch": "^1.7.1",
     "nodemon": "^1.11.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
+    "react-scripts": "1.0.7",
     "react-tap-event-plugin": "^2.0.1",
     "request": "^2.81.0",
-    "react-scripts": "1.0.7"
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "react-scripts": "1.0.7"

@@ -3,6 +3,9 @@ import $                    from 'jquery';
 import { AutoComplete }     from 'material-ui';
 import getMuiTheme          from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider     from 'material-ui/styles/MuiThemeProvider';
+import 'whatwg-fetch';
+import Promise from 'promise-polyfill';
+import BeerDisplayInfo from './BeerDisplayInfo'
 
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
@@ -106,7 +109,6 @@ class BeerCard extends Component {
   render() {
     return (
       <div className="beer-card">
-
         <div className="input-group">
           <MuiThemeProvider muiTheme={getMuiTheme()}>
             <AutoComplete
@@ -119,43 +121,22 @@ class BeerCard extends Component {
               floatingLabelText = "Input beer name and hit enter..."
             />
           </MuiThemeProvider>
-
         </div>
-      <div className="beer-info">
-        <div className="beer-card-header">
-          <p className="beer-name"><strong>{this.state.displayName}</strong></p>
-          <p className="beer-type"><i>({this.state.beerStyle})</i></p>
-          <img className="beer-label" src={this.state.beerImg} alt="..." />
+        <div className="beer-info">
+          <BeerDisplayInfo
+            beerName     = {this.state.beerName}
+            displayName  = {this.state.displayName}
+            beerDesc     = {this.state.beerDesc}
+            beerTaste    = {this.state.beerTaste}
+            beerImg      = {this.state.beerImg}
+            beerStyle    = {this.state.beerStyle}
+            beerAbv      = {this.state.beerAbv}
+            srmMax       = {this.state.srmMax}
+            gravity      = {this.state.gravity}
+            ibu          = {this.state.ibu}
+          />
         </div>
-
-        <div className="beer-stats">
-          <div className='beer-stats-inner'>
-            <div className='beer-single-stat'>
-              <p className="beer-stat-header">ABV:</p>
-              <p className="beer-stat-data">{this.state.beerAbv}%</p>
-            </div>
-            <div className='beer-single-stat'>
-              <p className="beer-stat-header">IBU:</p>
-              <p className="beer-stat-data">{this.state.ibu}</p>
-            </div>
-          </div>
-          <div className="beer-stats-inner">
-            <div className='beer-single-stat'>
-              <p className="beer-stat-header">Gravity:</p>
-              <p className="beer-stat-data">{this.state.gravity}</p>
-            </div>
-            <div className='beer-single-stat'>
-              <p className="beer-stat-header">SRM: </p>
-              <p className="beer-stat-data">{this.state.srmMax}</p>
-            </div>
-          </div>
-        </div>
-          <div>
-            <p className=''><strong>Description</strong></p>
-            <p className='beer-desc'>{this.state.beerDesc}</p>
-          </div>
       </div>
-    </div>
     );
   }
 }

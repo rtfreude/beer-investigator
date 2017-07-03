@@ -33,7 +33,7 @@ class BreweryCard extends Component {
   }
 
   componentDidMount() {
-    //this.breweryCall(this.state.breweryName);
+    this.breweryCall(this.state.breweryName);
     //this.beersCall();
   }
 
