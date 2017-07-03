@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: flex-start;
   max-width: 25%;
-  min-width: 250px;
+  min-width: 20%px;
   -webkit-box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
   -moz-box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
   box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
@@ -22,7 +22,7 @@
   align-items: flex-start;
   flex-direction: column;
   max-width: 25%;
-  min-width: 250px;
+  min-width: 20%;
   -webkit-box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
   -moz-box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
   box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);

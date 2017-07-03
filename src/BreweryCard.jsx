@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import { AutoComplete }     from 'material-ui';
+import getMuiTheme          from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider     from 'material-ui/styles/MuiThemeProvider';
 
-import BreweryBeerCard from './BreweryBeerCard.jsx'
+import BreweryBeerCard from './BreweryBeerCard.jsx';
+
+// var injectTapEventPlugin = require("react-tap-event-plugin");
+// injectTapEventPlugin();
 
 class BreweryCard extends Component {
   constructor(props) {
@@ -17,14 +23,17 @@ class BreweryCard extends Component {
       breweryBeerName: '',
       breweryBeerStyle: '',
       breweryBeerLabel: '',
-      breweryBeerArray: []
+      breweryBeerArray: [],
+      dataSource : [],
+      inputValue : 'Blue Owl Brewing'
     }
-    this.handleInputChange = this.handleInputChange.bind(this);
+    //this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.onUpdateInput = this.onUpdateInput.bind(this);
   }
 
   componentDidMount() {
-    this.breweryCall(this.state.breweryName);
+    //this.breweryCall(this.state.breweryName);
     //this.beersCall();
   }
 
@@ -34,18 +43,57 @@ class BreweryCard extends Component {
     this.setState({breweryName: input})
   }
 
+  onUpdateInput(inputValue) {
+    const self = this;
+    this.setState({
+      inputValue: inputValue
+    }, function() {
+      self.performSearch();
+    });
+  }
+
+  performSearch() {
+    const self = this;
+
+    if(this.state.inputValue !== '') {
+
+      return $.get('/searchbrewery', {inputValue: self.state.inputValue})
+        .then((data) => {
+          console.log('performSearch', data)
+          let retrievedSearchTerms = data.sort();
+          console.log('sort data', retrievedSearchTerms)
+        self.setState({
+          dataSource: retrievedSearchTerms
+        });
+
+      });
+    }
+  }
+
   handleClick () {
     //console.log('handleclicked')
-    this.componentDidMount();
+    //this.componentDidMount();
+    this.breweryCall(this.state.inputValue);
   }
 
   breweryCall(userInput) {
     //make call to server
     const self = this;
-    return $.get('/breweries',{breweryRequest: userInput})
+    return $.get('/breweries',{breweryRequest: this.state.inputValue})
       .then((data) => {
-      //console.log('breweryCall:', data)
+      console.log('breweryCall:', data)
 
+      if(!data.data[0].images) {
+      this.setState({
+        breweryName: '',
+        displayName: data.data[0].name,
+        website: data.data[0].website,
+        breweryImage: "beer.jpg",
+        brand: data.data[0].brandClassification,
+        description: data.data[0].description,
+        breweryId:data.data[0].id
+      })
+    }else{
       this.setState({
         breweryName: '',
         displayName: data.data[0].name,
@@ -54,9 +102,10 @@ class BreweryCard extends Component {
         brand: data.data[0].brandClassification,
         description: data.data[0].description,
         breweryId:data.data[0].id
-
       })
+
       self.beersCall()
+    }
     })
 
   }
@@ -79,21 +128,20 @@ class BreweryCard extends Component {
     return (
       <div className="brewery-card">
         <div className="input-group">
-          <input
-            type="text"
-            value={this.state.breweryName}
-            onChange={this.handleInputChange}
-            className="form-control"
-            placeholder="Search for brewery..." />
-          <span className="input-group-btn">
-          <button
-            className="btn btn-default"
-            onClick={this.handleClick}
-            type="button">
-            Find Brewery!
-            </button>
-          </span>
+          <MuiThemeProvider muiTheme={getMuiTheme()}>
+            <AutoComplete
+              hintText          = "Input brewery name..."
+              dataSource        = {this.state.dataSource}
+              filter            = {AutoComplete.noFilter}
+              onTouchTap        = {this.handleClick}
+              onUpdateInput     = {this.onUpdateInput}
+              onNewRequest      = {this.handleClick}
+              floatingLabelText = "Input brewery name and hit enter..."
+            />
+          </MuiThemeProvider>
+
         </div>
+
       <div className="beer-info">
         <div className="beer-card-header">
           <p className="beer-name"><strong>{this.state.displayName}</strong></p>
@@ -123,4 +171,21 @@ class BreweryCard extends Component {
 }
 
 export default BreweryCard;
+
+  // <div className="input-group">
+  //         <input
+  //           type="text"
+  //           value={this.state.breweryName}
+  //           onChange={this.handleInputChange}
+  //           className="form-control"
+  //           placeholder="Search for brewery..." />
+  //         <span className="input-group-btn">
+  //         <button
+  //           className="btn btn-default"
+  //           onClick={this.handleClick}
+  //           type="button">
+  //           Find Brewery!
+  //           </button>
+  //         </span>
+  //       </div>
 

@@ -26,8 +26,8 @@ app.get('/beername', (req, res) => {
 });
 
 //a rough search endpoint used for grabbing autocomplete input--autocomplete needs to be improved
-app.get('/search', (req, res) => {
-  console.log(req.query.beerRequest)
+app.get('/searchbeer', (req, res) => {
+  //console.log(req.query.beerRequest)
   let userReq = req.query.inputValue; //hardcoded search criteria, I would Exptect 'Naughty 90' to be one of the results
   let allBeers = [];  //array to be returned to the user
 
@@ -74,9 +74,50 @@ app.get('/breweries', (req, res) => {
   let url = 'http://api.brewerydb.com/v2/breweries?key=' + API_KEY + '&name=' + userReq;
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
-    console.log('serverbrew:', parsedBody)
+    //console.log('serverbrew:', parsedBody)
     res.send(parsedBody);
   })
+});
+
+app.get('/searchbrewery', (req, res) => {
+  console.log(req.query.inputValue)
+  let userReq = req.query.inputValue; //hardcoded search criteria, I would Exptect 'Naughty 90' to be one of the results
+  let allBreweries = [];  //array to be returned to the user
+
+  const getAllBreweries = function(page) {
+    let pageNum = page || 1;
+    let breweries = [];
+
+    let url = 'http://api.brewerydb.com/v2/search?key=' + API_KEY + '&q=' + userReq + '&type=brewery&p=' + pageNum;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(body => {
+        if (!body.data) {
+          return breweries;
+        }
+        for(let j = 0; j < body.data.length; j++) {
+          breweries.push(body.data[j].name);
+        }
+      return breweries;
+    }).then(breweries => {
+      if (!breweries.length) {
+        var flattened = [].concat.apply([], allBreweries); //used to flatten the returned arrays
+        res.send(flattened);
+        return;
+
+      } else if (pageNum >= 2) {
+        var flattened = [].concat.apply([], allBreweries);
+        res.send(flattened);
+        return;
+
+      } else {
+        allBreweries.push(breweries);
+        getAllBreweries(pageNum + 1);
+      }
+    });
+  };
+  getAllBreweries(1); //start query on page 1
 });
 
 //beers at each brewery
@@ -86,7 +127,7 @@ app.get('/brewerybeers', (req, res) => {
   let url = 'http://api.brewerydb.com/v2/brewery/'+ userReq +'/beers?key=' + API_KEY
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
-    console.log('brewery beers:', parsedBody)
+    //console.log('brewery beers:', parsedBody)
     res.send(parsedBody);
   })
 

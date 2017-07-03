@@ -20,8 +20,8 @@ class BeerCard extends Component {
       beerAbv: 0,
       srmMax: 0,
       gravity: 0,
-      dataSource : [],
-      inputValue : 'Naughty 90'
+      dataSource: [],
+      inputValue: 'Naughty 90'
     }
     this.handleClick = this.handleClick.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
@@ -37,6 +37,7 @@ class BeerCard extends Component {
   }
 
   componentDidMount() {
+
     this.beerCall(this.state.inputValue);
   }
 
@@ -50,11 +51,11 @@ class BeerCard extends Component {
 
     if(this.state.inputValue !== '') {
 
-      return $.get('/search', {inputValue: self.state.inputValue})
+      return $.get('/searchbeer', {inputValue: self.state.inputValue})
         .then((data) => {
-          console.log('performSearch', data)
+          //console.log('performSearch', data)
           let retrievedSearchTerms = data.sort();
-          console.log('sort data', retrievedSearchTerms)
+          //console.log('sort data', retrievedSearchTerms)
         self.setState({
           dataSource: retrievedSearchTerms
         });
@@ -67,7 +68,7 @@ class BeerCard extends Component {
 
     return $.get('/beername', {beerRequest: this.state.inputValue})
     .then((data) => {
-      console.log('beerCall', data)
+      //console.log('beerCall', data)
 
       let srm = (+data.data[0].style.srmMax+(+data.data[0].style.srmMin))/2;
       let fg = parseFloat((+data.data[0].style.fgMax+(+data.data[0].style.fgMin))/2).toFixed(4);
