@@ -15,7 +15,9 @@ class BreweryBeerCard extends Component {
           <div key={index} onClick={this.props.handleBeerClick.bind(this, beer)} className="brewer-beer-card-ind">
             <p className="brewer-beer-name">{beer.name}</p>
             {/*<img className="beer-label" src={beer.labels.medium} alt="beer.jpg" />*/}
-            {/*<p className="brewer-beer-style"><em>{beer.style.shortName}</em></p>*/}
+            {<p className="brewer-beer-style"><em>{beer.style
+                                                      ? beer.style.shortName
+                                                      : 'No Style Listed'}</em></p>}
           </div>
         ))}
       </div>

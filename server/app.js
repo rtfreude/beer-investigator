@@ -14,6 +14,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 //used to search beers by name and return certain data
 app.get('/beername', (req, res) => {
+  console.log('backend beernam', req.query.beerRequest)
   let userReq = req.query.beerRequest;
 
   var url = 'http://api.brewerydb.com/v2/beers?key=' + API_KEY + '&name='+ userReq;
@@ -27,7 +28,7 @@ app.get('/beername', (req, res) => {
 
 //a rough search endpoint used for grabbing autocomplete input--autocomplete needs to be improved
 app.get('/searchbeer', (req, res) => {
-  console.log(req.query.inputValue)
+  //console.log(req.query.inputValue)
   let userReq = req.query.inputValue; //hardcoded search criteria, I would Exptect 'Naughty 90' to be one of the results
   let allBeers = [];  //array to be returned to the user
 

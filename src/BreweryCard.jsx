@@ -16,7 +16,7 @@ class BreweryCard extends Component {
     super(props);
      this.state = {
       breweryName: "Blue Owl Brewing",
-      displayName: "Blue Owl Brewing",
+      breweDisplayName: "Blue Owl Brewing",
       website: 'http://blueowlbrewing.com',
       breweryImage: 'https://s3.amazonaws.com/brewerydbapi/brewery/P203ye/upload_bmzvY5-medium.png',
       brand: 'Craft',
@@ -28,7 +28,18 @@ class BreweryCard extends Component {
       breweryBeerArray: [],
       dataSource : [],
       inputValue : 'Blue Owl Brewing',
-      showModal: false
+      showModal: false,
+      beerName: 'Naughty 90',
+      displayName: 'Naughty 90',
+      beerDesc: '',
+      beerTaste: '',
+      beerImg: "http://via.placeholder.com/200x200",
+      beerStyle: '',
+      beerAbv: 0,
+      srmMax: 0,
+      gravity: 0,
+      dataSource: [],
+      inputValue: 'Naughty 90'
     }
     this.handleBeerClick = this.handleBeerClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -48,7 +59,7 @@ class BreweryCard extends Component {
 
   componentDidMount() {
     this.breweryCall(this.state.breweryName);
-    //this.beersCall();
+    this.beersCall();
   }
 
   handleInputChange(event) {
@@ -86,12 +97,30 @@ class BreweryCard extends Component {
 
   handleBeerClick(beer) {
     //const self = this;
-    console.log('clicked',beer.name)
+    console.log('clicked', beer.name)
     //this.state.inputValue = beer.name
+    return $.get('/beername', {beerRequest: beer.name})
+    .then((data) => {
+      //console.log('beerCall', data)
 
-    this.setState({
-      showModal: !this.state.showModal
-    })
+      let srm = (+data.data[0].style.srmMax+(+data.data[0].style.srmMin))/2;
+      let fg = parseFloat((+data.data[0].style.fgMax+(+data.data[0].style.fgMin))/2).toFixed(4);
+
+        this.setState({
+          showModal: !this.state.showModal,
+          beerName: data.data[0].name,
+          displayName: data.data[0].name,
+          beerDesc: data.data[0].description,
+          beerTaste: data.data[0].style.description,
+          beerImg: 'beer.jpg',
+          beerStyle: data.data[0].style.shortName,
+          beerAbv: data.data[0].abv,
+          srmMax: srm,
+          gravity: fg,
+          ibu: data.data[0].ibu
+        })
+
+  })
   }
 
   handleClick () {
@@ -111,7 +140,7 @@ class BreweryCard extends Component {
       if(!data.data[0].images) {
       this.setState({
         breweryName: '',
-        displayName: data.data[0].name,
+        brewDisplayName: data.data[0].name,
         website: data.data[0].website,
         breweryImage: "beer.jpg",
         brand: data.data[0].brandClassification,
@@ -122,7 +151,7 @@ class BreweryCard extends Component {
     }else{
       this.setState({
         breweryName: '',
-        displayName: data.data[0].name,
+        brewDisplayName: data.data[0].name,
         website: data.data[0].website,
         breweryImage: data.data[0].images.medium,
         brand: data.data[0].brandClassification,
@@ -137,7 +166,7 @@ class BreweryCard extends Component {
 
   beersCall() {
     //make call to server
-          console.log('BEERSSSS CAAAALLLL', this.state.breweryId)
+    console.log('BEERSSSS CAAAALLLL', this.state.breweryId)
     return $.get('/brewerybeers',{breweryId: this.state.breweryId})
       .then((data) => {
        console.log('brewery Beer Call:', data)
@@ -169,7 +198,7 @@ class BreweryCard extends Component {
 
       <div className="beer-info">
         <div className="beer-card-header">
-          <p className="beer-name"><strong>{this.state.displayName}</strong></p>
+          <p className="beer-name"><strong>{this.state.brewDisplayName}</strong></p>
           <p className="beer-type"><i>{this.state.website}</i></p>
           <img className="brewery-label" src={this.state.breweryImage} alt="..." />
         </div>
@@ -196,6 +225,16 @@ class BreweryCard extends Component {
               showModal={this.state.showModal}
               close={this.close}
               open={this.open}
+              beerName     = {this.state.beerName}
+              displayName  = {this.state.displayName}
+              beerDesc     = {this.state.beerDesc}
+              beerTaste    = {this.state.beerTaste}
+              beerImg      = {this.state.beerImg}
+              beerStyle    = {this.state.beerStyle}
+              beerAbv      = {this.state.beerAbv}
+              srmMax       = {this.state.srmMax}
+              gravity      = {this.state.gravity}
+              ibu          = {this.state.ibu}
             />
             : null
         }

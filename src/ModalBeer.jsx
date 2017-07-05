@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Modal, Popover, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import $                    from 'jquery';
 
+import BeerDisplayInfo from './BeerDisplayInfo.jsx'
+
 class ModalBeer extends Component {
 
 
@@ -16,45 +18,29 @@ class ModalBeer extends Component {
         wow.
       </Tooltip>
     );
-
+    console.log(this.props)
     return (
       <div>
-        <p>Click to get the full Modal experience!</p>
-
-        <Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={this.props.open.bind(this)}
-        >
-          Launch demo modal
-        </Button>
 
         <Modal show={this.props.showModal} onHide={this.props.close.bind(this)}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Beer Information Card</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Text in a modal</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
 
-            <h4>Popover in a modal</h4>
-            <p>there is a <OverlayTrigger overlay={popover}><a href="#">popover</a></OverlayTrigger> here</p>
+            <BeerDisplayInfo
+              beerName     = {this.props.beerName}
+              displayName  = {this.props.displayName}
+              beerDesc     = {this.props.beerDesc}
+              beerTaste    = {this.props.beerTaste}
+              beerImg      = {this.props.beerImg}
+              beerStyle    = {this.props.beerStyle}
+              beerAbv      = {this.props.beerAbv}
+              srmMax       = {this.props.srmMax}
+              gravity      = {this.props.gravity}
+              ibu          = {this.props.ibu}
+            />
 
-            <h4>Tooltips in a modal</h4>
-            <p>there is a <OverlayTrigger overlay={tooltip}><a href="#">tooltip</a></OverlayTrigger> here</p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.close.bind(this)}>Close</Button>
