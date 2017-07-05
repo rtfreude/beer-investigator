@@ -102,18 +102,42 @@ class BreweryCard extends Component {
     return $.get('/beername', {beerRequest: beer.name})
     .then((data) => {
       //console.log('beerCall', data)
+      let srm;
+      let fg;
+      let description;
+      let taste;
+      let shortName;
 
-      let srm = (+data.data[0].style.srmMax+(+data.data[0].style.srmMin))/2;
-      let fg = parseFloat((+data.data[0].style.fgMax+(+data.data[0].style.fgMin))/2).toFixed(4);
+      if(data.data[0].style !== undefined) {
+        srm = (+data.data[0].style.srmMax+(+data.data[0].style.srmMin))/2;
+        taste = data.data[0].style.description;
+        shortName = data.data[0].style.shortName;
+      } else {
+        srm = 'No SRM'
+        taste = 'No Description'
+        shortName = 'No Name'
+      }
+
+      if(data.data[0].style !== undefined) {
+        fg = parseFloat((+data.data[0].style.fgMax+(+data.data[0].style.fgMin))/2).toFixed(4);
+      } else {
+        fg = 'No fg'
+      }
+
+      if(data.data[0].description !== undefined) {
+        description = data.data[0].description;
+      } else {
+        description = 'No description available...'
+      }
 
         this.setState({
           showModal: !this.state.showModal,
           beerName: data.data[0].name,
           displayName: data.data[0].name,
-          beerDesc: data.data[0].description,
-          beerTaste: data.data[0].style.description,
+          beerDesc: description,
+          beerTaste: taste,
           beerImg: 'beer.jpg',
-          beerStyle: data.data[0].style.shortName,
+          beerStyle: shortName,
           beerAbv: data.data[0].abv,
           srmMax: srm,
           gravity: fg,
