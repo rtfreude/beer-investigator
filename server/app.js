@@ -127,7 +127,7 @@ app.get('/brewerybeers', (req, res) => {
   let url = 'http://api.brewerydb.com/v2/brewery/'+ userReq +'/beers?key=' + API_KEY
   request(url, function(err, resp, body) {
     let parsedBody = JSON.parse(body);
-    //console.log('brewery beers:', parsedBody)
+    console.log('brewery beers:', parsedBody)
     res.send(parsedBody);
   })
 

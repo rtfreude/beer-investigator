@@ -4,7 +4,9 @@ import { AutoComplete }     from 'material-ui';
 import getMuiTheme          from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider     from 'material-ui/styles/MuiThemeProvider';
 
+//import BeerDisplayInfo      from './BeerDisplayInfo.jsx'
 import BreweryBeerCard from './BreweryBeerCard.jsx';
+import ModalBeer from './ModalBeer.jsx'
 
 // var injectTapEventPlugin = require("react-tap-event-plugin");
 // injectTapEventPlugin();
@@ -25,11 +27,23 @@ class BreweryCard extends Component {
       breweryBeerLabel: '',
       breweryBeerArray: [],
       dataSource : [],
-      inputValue : 'Blue Owl Brewing'
+      inputValue : 'Blue Owl Brewing',
+      showModal: false
     }
-    //this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleBeerClick = this.handleBeerClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.breweryCall = this.breweryCall.bind(this)
+    this.close = this.close.bind(this);
+    this.open = this.open.bind(this);
+  }
+
+  close() {
+    this.setState({showModal: false})
+  }
+
+  open() {
+    this.setState({showModal: true})
   }
 
   componentDidMount() {
@@ -70,6 +84,16 @@ class BreweryCard extends Component {
     }
   }
 
+  handleBeerClick(beer) {
+    //const self = this;
+    console.log('clicked',beer.name)
+    //this.state.inputValue = beer.name
+
+    this.setState({
+      showModal: !this.state.showModal
+    })
+  }
+
   handleClick () {
     //console.log('handleclicked')
     //this.componentDidMount();
@@ -79,6 +103,7 @@ class BreweryCard extends Component {
   breweryCall(userInput) {
     //make call to server
     const self = this;
+    console.log('breweryCall INputvalue',this.state.inputValue)
     return $.get('/breweries',{breweryRequest: this.state.inputValue})
       .then((data) => {
       console.log('breweryCall:', data)
@@ -93,6 +118,7 @@ class BreweryCard extends Component {
         description: data.data[0].description,
         breweryId:data.data[0].id
       })
+      self.beersCall()
     }else{
       this.setState({
         breweryName: '',
@@ -103,7 +129,6 @@ class BreweryCard extends Component {
         description: data.data[0].description,
         breweryId:data.data[0].id
       })
-
       self.beersCall()
     }
     })
@@ -112,10 +137,10 @@ class BreweryCard extends Component {
 
   beersCall() {
     //make call to server
-
+          console.log('BEERSSSS CAAAALLLL', this.state.breweryId)
     return $.get('/brewerybeers',{breweryId: this.state.breweryId})
       .then((data) => {
-       //console.log('brewery Beer Call:', data)
+       console.log('brewery Beer Call:', data)
       this.setState({
         breweryBeerArray: data.data
       })
@@ -162,8 +187,18 @@ class BreweryCard extends Component {
         </div>
         <BreweryBeerCard
           className="brewer-beer-container"
+          handleBeerClick={this.handleBeerClick}
           breweryBeerArray={this.state.breweryBeerArray}
         />
+        {
+          this.state.showModal
+            ? <ModalBeer
+              showModal={this.state.showModal}
+              close={this.close}
+              open={this.open}
+            />
+            : null
+        }
       </div>
     </div>
     );
@@ -171,21 +206,3 @@ class BreweryCard extends Component {
 }
 
 export default BreweryCard;
-
-  // <div className="input-group">
-  //         <input
-  //           type="text"
-  //           value={this.state.breweryName}
-  //           onChange={this.handleInputChange}
-  //           className="form-control"
-  //           placeholder="Search for brewery..." />
-  //         <span className="input-group-btn">
-  //         <button
-  //           className="btn btn-default"
-  //           onClick={this.handleClick}
-  //           type="button">
-  //           Find Brewery!
-  //           </button>
-  //         </span>
-  //       </div>
-
