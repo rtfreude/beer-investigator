@@ -83,7 +83,7 @@
   color: grey;
   display: flex;
   font-size: 1.25em;
-
+  margin-bottom: 10px;
 }
 
 .beer-abv {
