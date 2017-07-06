@@ -30,9 +30,7 @@ class BeerDisplayInfo extends Component {
             </div>
             <div className='beer-single-stat'>
               <p className="beer-stat-header">SRM: </p>
-              <p className="beer-stat-data">{this.props.srmMax
-                                              ? this.props.srmMax
-                                              : 'No SRM'}</p>
+              <p className="beer-stat-data">{this.props.srmMax}</p>
             </div>
           </div>
         </div>

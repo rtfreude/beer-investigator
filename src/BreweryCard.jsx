@@ -101,12 +101,14 @@ class BreweryCard extends Component {
     //this.state.inputValue = beer.name
     return $.get('/beername', {beerRequest: beer.name})
     .then((data) => {
-      //console.log('beerCall', data)
+      console.log('beerCall', data)
       let srm;
       let fg;
       let description;
       let taste;
       let shortName;
+      let abv;
+      let image;
 
       if(data.data[0].style !== undefined) {
         srm = (+data.data[0].style.srmMax+(+data.data[0].style.srmMin))/2;
@@ -130,13 +132,19 @@ class BreweryCard extends Component {
         description = 'No description available...'
       }
 
+      if(data.data[0].labels !== undefined) {
+        image = data.data[0].labels.medium;
+      } else {
+        image = 'beer.jpg'
+      }
+
         this.setState({
           showModal: !this.state.showModal,
           beerName: data.data[0].name,
           displayName: data.data[0].name,
           beerDesc: description,
           beerTaste: taste,
-          beerImg: 'beer.jpg',
+          beerImg: image,
           beerStyle: shortName,
           beerAbv: data.data[0].abv,
           srmMax: srm,
