@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import $                    from 'jquery';
+import { ProgressBar } from 'react-bootstrap';
 
 class BeerDisplayInfo extends Component {
 
   render() {
+    const maxAbv = 12;
     return (
       <div className="beer-info">
         <div className="beer-card-header">
@@ -16,7 +18,7 @@ class BeerDisplayInfo extends Component {
           <div className='beer-stats-inner'>
             <div className='beer-single-stat'>
               <p className="beer-stat-header">ABV:</p>
-              <p className="beer-stat-data">{this.props.beerAbv}%</p>
+              <p><ProgressBar max={maxAbv} now={this.props.beerAbv} label={`${this.props.beerAbv}%`} /></p>
             </div>
             <div className='beer-single-stat'>
               <p className="beer-stat-header">IBU:</p>

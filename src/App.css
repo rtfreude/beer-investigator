@@ -66,12 +66,17 @@
 
 .beer-single-stat {
   display: flex;
-  display: row;
+  display: table-column;
+  width: 100%;
+}
+
+.progress {
+  width: 100%;
 }
 
 .beer-stat-header {
   font-size: 1em;
-  margin-right: 6px;
+  width: 100%;
 }
 
 .beer-stat-data {
