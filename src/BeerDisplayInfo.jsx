@@ -21,7 +21,7 @@ class BeerDisplayInfo extends Component {
         <div className="beer-stats">
           <div className='beer-stats-inner'>
             <div className='beer-single-stat-left'>
-              <p className="beer-stat-header">ABV:</p>
+              <p className="beer-stat-header"><strong>ABV</strong></p>
               <ProgressBar max={maxAbv} now={this.props.beerAbv} label={`${this.props.beerAbv}%`} />
               <div className="prog-labels">
                 <p className="left-prog-label">Low</p>
@@ -29,7 +29,7 @@ class BeerDisplayInfo extends Component {
               </div>
             </div>
             <div className='beer-single-stat-right'>
-              <p className="beer-stat-header">IBU:</p>
+              <p className="beer-stat-header"><strong>IBU</strong></p>
 
               <ProgressBar
                 max={maxIbu} n
@@ -47,7 +47,7 @@ class BeerDisplayInfo extends Component {
           </div>
           <div className="beer-stats-inner">
             <div className='beer-single-stat-left'>
-              <p className="beer-stat-header">Gravity:</p>
+              <p className="beer-stat-header"><strong>Gravity</strong></p>
               <ProgressBar min= {minGravity} max={maxGravity} now={this.props.gravity} label={`${this.props.gravity}%`} />
               <div className="prog-labels">
                 <p className="left-prog-label">Low</p>
@@ -55,7 +55,7 @@ class BeerDisplayInfo extends Component {
               </div>
             </div>
             <div className='beer-single-stat-right'>
-              <p className="beer-stat-header">SRM: </p>
+              <p className="beer-stat-header"><strong>SRM</strong></p>
               <ProgressBar max={srmMax} now={this.props.srmMax} label={`${this.props.srmMax}%`} />
               <div className="prog-labels">
                 <p className="left-prog-label">Light</p>
