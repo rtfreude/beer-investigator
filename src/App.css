@@ -28,6 +28,20 @@
   box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
 }
 
+.prog-labels {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.left-prog-label {
+  font-size: .75em;
+}
+
+.right-prog-label {
+  font-size: .75em;
+}
+
 .beer-card-header {
   display: flex;
   flex-direction: column;
@@ -64,19 +78,29 @@
   flex-direction: column;
 }
 
-.beer-single-stat {
+.beer-single-stat-left {
   display: flex;
   display: table-column;
   width: 100%;
+  margin-right: 7.5px;
+}
+
+.beer-single-stat-right {
+  display: flex;
+  display: table-column;
+  width: 100%;
+  margin-left: 7.5px;
 }
 
 .progress {
   width: 100%;
+  margin-bottom: 0px;
 }
 
 .beer-stat-header {
   font-size: 1em;
   width: 100%;
+  margin-bottom: 3px;
 }
 
 .beer-stat-data {

@@ -6,6 +6,10 @@ class BeerDisplayInfo extends Component {
 
   render() {
     const maxAbv = 12;
+    const maxIbu = 100;
+    const maxGravity = 1.2;
+    const minGravity = .08;
+    const srmMax = 40;
     return (
       <div className="beer-info">
         <div className="beer-card-header">
@@ -16,23 +20,47 @@ class BeerDisplayInfo extends Component {
 
         <div className="beer-stats">
           <div className='beer-stats-inner'>
-            <div className='beer-single-stat'>
+            <div className='beer-single-stat-left'>
               <p className="beer-stat-header">ABV:</p>
-              <p><ProgressBar max={maxAbv} now={this.props.beerAbv} label={`${this.props.beerAbv}%`} /></p>
+              <ProgressBar max={maxAbv} now={this.props.beerAbv} label={`${this.props.beerAbv}%`} />
+              <div className="prog-labels">
+                <p className="left-prog-label">Low</p>
+                <p className="right-prog-label">High</p>
+              </div>
             </div>
-            <div className='beer-single-stat'>
+            <div className='beer-single-stat-right'>
               <p className="beer-stat-header">IBU:</p>
-              <p className="beer-stat-data">{this.props.ibu}</p>
+
+              <ProgressBar
+                max={maxIbu} n
+                now={this.props.ibu
+                      ? this.props.ibu
+                      : 100}
+                label={`${this.props.ibu
+                            ? this.props.ibu
+                            : 'N/A'}%`} />
+              <div className="prog-labels">
+                <p className="left-prog-label">Smooth</p>
+                <p className="right-prog-label">Bitter</p>
+              </div>
             </div>
           </div>
           <div className="beer-stats-inner">
-            <div className='beer-single-stat'>
+            <div className='beer-single-stat-left'>
               <p className="beer-stat-header">Gravity:</p>
-              <p className="beer-stat-data">{this.props.gravity}</p>
+              <ProgressBar min= {minGravity} max={maxGravity} now={this.props.gravity} label={`${this.props.gravity}%`} />
+              <div className="prog-labels">
+                <p className="left-prog-label">Low</p>
+                <p className="right-prog-label">High</p>
+              </div>
             </div>
-            <div className='beer-single-stat'>
+            <div className='beer-single-stat-right'>
               <p className="beer-stat-header">SRM: </p>
-              <p className="beer-stat-data">{this.props.srmMax}</p>
+              <ProgressBar max={srmMax} now={this.props.srmMax} label={`${this.props.srmMax}%`} />
+              <div className="prog-labels">
+                <p className="left-prog-label">Light</p>
+                <p className="right-prog-label">Dark</p>
+              </div>
             </div>
           </div>
         </div>
