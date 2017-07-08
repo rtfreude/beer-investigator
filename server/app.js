@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('request');
 const app = express();
 
-const API_KEY = require('./secrets');
+const { API_KEY } = require('./secrets');
 const fetch = require('./fetch-fill');
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));

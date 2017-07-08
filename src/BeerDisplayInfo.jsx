@@ -65,9 +65,9 @@ class BeerDisplayInfo extends Component {
                 now={this.props.ibu
                       ? this.props.ibu
                       : 100}
-                label={`${this.props.ibu
+                label={this.props.ibu
                             ? this.props.ibu
-                            : 'N/A'}%`} />
+                            : 'N/A'}/>
               <div className="prog-labels">
                 <p className="left-prog-label">Smooth</p>
                 <p className="right-prog-label">Bitter</p>
@@ -79,7 +79,7 @@ class BeerDisplayInfo extends Component {
               <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocusGravity}>
                 <p className="beer-stat-header"><strong>Gravity</strong></p>
               </OverlayTrigger>
-              <ProgressBar min= {minGravity} max={maxGravity} now={this.props.gravity} label={`${this.props.gravity}%`} />
+              <ProgressBar min= {minGravity} max={maxGravity} now={this.props.gravity} label={this.props.gravity} />
               <div className="prog-labels">
                 <p className="left-prog-label">Low</p>
                 <p className="right-prog-label">High</p>
@@ -89,7 +89,7 @@ class BeerDisplayInfo extends Component {
               <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocusSRM}>
                 <p className="beer-stat-header"><strong>SRM</strong></p>
               </OverlayTrigger>
-              <ProgressBar max={srmMax} now={this.props.srmMax} label={`${this.props.srmMax}%`} />
+              <ProgressBar max={srmMax} now={this.props.srmMax} label={this.props.srmMax} />
               <div className="prog-labels">
                 <p className="left-prog-label">Light</p>
                 <p className="right-prog-label">Dark</p>
