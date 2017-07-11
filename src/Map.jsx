@@ -12,8 +12,8 @@ class Map extends React.Component {
       map: '',
       infowindow: ''
     }
-    //this.callback = this.callback.bind(this)
-    //this.createMarker= this.createMarker.bind(this)
+    this.callback = this.callback.bind(this)
+    this.createMarker= this.createMarker.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -29,17 +29,17 @@ class Map extends React.Component {
 
 initAutocomplete() {
   const self = this;
-  console.log('initComplete',self.props)
+
         const node = ReactDOM.findDOMNode(this.refs.map)
         this.state.map = new self.props.google.maps.Map(node, {
           center: {lat: -33.8688, lng: 151.2195},
-          zoom: 13,
+          zoom: 16,
           mapTypeId: 'roadmap'
         });
         // Create the search box and link it to the UI element.
         var input = ReactDOM.findDOMNode(self.refs.inputBox);
         var searchBox = new self.props.google.maps.places.SearchBox(input);
-        this.state.map.controls[self.props.google.maps.ControlPosition.TOP_LEFT].push(input);
+        this.state.map.controls[self.props.google.maps.ControlPosition.TOP_RIGHT].push(input);
 
         // Bias the SearchBox results towards current map's viewport.
         this.state.map.addListener('bounds_changed', function() {
@@ -69,18 +69,27 @@ initAutocomplete() {
               console.log("Returned place contains no geometry");
               return;
             }
-            var icon = {
-              url: place.icon,
-              size: new self.props.google.maps.Size(71, 71),
-              origin: new self.props.google.maps.Point(0, 0),
-              anchor: new self.props.google.maps.Point(17, 34),
-              scaledSize: new self.props.google.maps.Size(25, 25)
-            };
 
-            // Create a marker for each place.
+
+
+
+
+            self.state.infowindow = new self.props.google.maps.InfoWindow();
+
+            var service = new self.props.google.maps.places.PlacesService(self.state.map);
+
+              service.textSearch({
+                query: 'breweries',
+                location: place.geometry.location,
+                radius: 500
+
+              }, self.callback);
+
+
+            // Create a marker for each place..NOTE: this is for the city marker only
             markers.push(new self.props.google.maps.Marker({
               map: self.state.map,
-              icon: icon,
+              icon: place.icon,
               title: place.name,
               position: place.geometry.location
             }));
@@ -93,7 +102,8 @@ initAutocomplete() {
             }
           });
           self.state.map.fitBounds(bounds);
-        });
+
+      })
       }
 
   // initMap() {
@@ -106,43 +116,56 @@ initAutocomplete() {
   //     center: pyrmont,
   //     zoom: 10
   //   });
-  //   this.state.infowindow = new this.props.google.maps.InfoWindow();
+//     this.state.infowindow = new this.props.google.maps.InfoWindow();
 
-  //   var service = new this.props.google.maps.places.PlacesService(this.state.map);
+//   var service = new this.props.google.maps.places.PlacesService(this.state.map);
 
-  //   service.textSearch({
-  //     query: 'breweries',
-  //     location: pyrmont,
-  //     radius: 1000
+//   service.textSearch({
+//     query: 'breweries',
+//     location: pyrmont,
+//     radius: 1000
 
-  //   }, this.callback);
-  // }
+//   }, this.callback);
+// }
 
-  // callback(results, status) {
-  //   console.log('results', results, status)
-  //   const self = this;
-  //   if (status === self.props.google.maps.places.PlacesServiceStatus.OK) {
-  //     for (var i = 0; i < results.length; i++) {
-  //       self.createMarker(results[i]);
-  //     }
-  //   }
-  // }
+  callback(results, status) {
+    //console.log('results', results, status)
+    const self = this;
+    if (status === self.props.google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        self.createMarker(results[i]);
+      }
+    }
+  }
 
-  // createMarker(place) {
-  //   const self = this;
-  //   console.log('place', place)
-  //   var placeLoc = place.geometry.location;
-  //   var marker = new self.props.google.maps.Marker({
-  //     map: self.state.map,
-  //     position: place.geometry.location
-  //   });
-  //   console.log('placeLod', placeLoc)
-  //   console.log('marker', marker)
-  //   self.props.google.maps.event.addListener(marker, 'click', function() {
-  //     self.state.infowindow.setContent(place.name);
-  //     self.state.infowindow.open(self.state.map, marker.map);
-  //   });
-  // }
+  createMarker(place) {
+    const self = this;
+    //console.log('place', place)
+
+    var image = {
+      url: 'http://www.icon100.com/up/2403/32/beer.png',
+      // This marker is 20 pixels wide by 32 pixels high.
+      size: new self.props.google.maps.Size(32, 32),
+      // The origin for this image is (0, 0).
+      origin: new self.props.google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at (0, 32).
+      anchor: new self.props.google.maps.Point(0, 32)
+    };
+
+    var placeLoc = place.geometry.location;
+    var marker = new self.props.google.maps.Marker({
+      icon: image,
+      map: self.state.map,
+      position: place.geometry.location
+    });
+    //console.log('placeLod', placeLoc)
+    //console.log('marker', marker)
+    self.props.google.maps.event.addListener(marker, 'click', function() {
+      self.state.infowindow.setContent(place.name);
+      self.state.infowindow.setPosition(place.geometry.location)
+      self.state.infowindow.open(self.state.map, marker.map);
+    });
+  }
 
 
   render() {
