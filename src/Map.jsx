@@ -3,62 +3,164 @@ import ReactDOM from 'react-dom';
 
 
 
-
 class Map extends React.Component {
+
+  constructor(props) {
+    super(props);
+     this.state = {
+      userInput: '',
+      map: '',
+      infowindow: ''
+    }
+    //this.callback = this.callback.bind(this)
+    //this.createMarker= this.createMarker.bind(this)
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
-      this.loadMap();
+      this.initAutocomplete();
     }
   }
 
   componentDidMount() {
-    this.loadMap();
+    this.initAutocomplete();
   }
 
 
-  loadMap() {
-    if (this.props && this.props.google) {
-      // google is available
-console.log(this.props.google)
-      const {google} = this.props;
-      const maps = google.maps;
+initAutocomplete() {
+  const self = this;
+  console.log('initComplete',self.props)
+        const node = ReactDOM.findDOMNode(this.refs.map)
+        this.state.map = new self.props.google.maps.Map(node, {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+        // Create the search box and link it to the UI element.
+        var input = ReactDOM.findDOMNode(self.refs.inputBox);
+        var searchBox = new self.props.google.maps.places.SearchBox(input);
+        this.state.map.controls[self.props.google.maps.ControlPosition.TOP_LEFT].push(input);
 
-      const mapRef = this.refs.map;
-      const node = ReactDOM.findDOMNode(mapRef);
+        // Bias the SearchBox results towards current map's viewport.
+        this.state.map.addListener('bounds_changed', function() {
+          searchBox.setBounds(self.state.map.getBounds());
+        });
 
-      let zoom = 14;
-      let lat = 37.774929;
-      let lng = -122.419416;
-      const center = new maps.LatLng(lat, lng);
-      const mapConfig = Object.assign({}, {
-        center: center,
-        zoom: zoom
-      })
-      this.map = new maps.Map(node, mapConfig);
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
 
-    }
-  }
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new self.props.google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new self.props.google.maps.Size(71, 71),
+              origin: new self.props.google.maps.Point(0, 0),
+              anchor: new self.props.google.maps.Point(17, 34),
+              scaledSize: new self.props.google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new self.props.google.maps.Marker({
+              map: self.state.map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          self.state.map.fitBounds(bounds);
+        });
+      }
+
+  // initMap() {
+  //   //const self = this;
+
+  //   var pyrmont = {lat: -33.8665433, lng: 151.1956316}
+  //   const node = ReactDOM.findDOMNode(this.refs.map);
+
+  //   this.state.map = new this.props.google.maps.Map(node, {
+  //     center: pyrmont,
+  //     zoom: 10
+  //   });
+  //   this.state.infowindow = new this.props.google.maps.InfoWindow();
+
+  //   var service = new this.props.google.maps.places.PlacesService(this.state.map);
+
+  //   service.textSearch({
+  //     query: 'breweries',
+  //     location: pyrmont,
+  //     radius: 1000
+
+  //   }, this.callback);
+  // }
+
+  // callback(results, status) {
+  //   console.log('results', results, status)
+  //   const self = this;
+  //   if (status === self.props.google.maps.places.PlacesServiceStatus.OK) {
+  //     for (var i = 0; i < results.length; i++) {
+  //       self.createMarker(results[i]);
+  //     }
+  //   }
+  // }
+
+  // createMarker(place) {
+  //   const self = this;
+  //   console.log('place', place)
+  //   var placeLoc = place.geometry.location;
+  //   var marker = new self.props.google.maps.Marker({
+  //     map: self.state.map,
+  //     position: place.geometry.location
+  //   });
+  //   console.log('placeLod', placeLoc)
+  //   console.log('marker', marker)
+  //   self.props.google.maps.event.addListener(marker, 'click', function() {
+  //     self.state.infowindow.setContent(place.name);
+  //     self.state.infowindow.open(self.state.map, marker.map);
+  //   });
+  // }
+
 
   render() {
 
     return (
+      <div>
+        <input id="pac-input" ref='inputBox' className="controls" type="text" placeholder="Search Box" />
+        <div className="map" ref='map'>
 
-      <div className="map" ref='map'>
+          Loading map...
 
-        Loading map...
-
+        </div>
       </div>
-
     )
   }
 }
 
 export default Map;
-
-
-
-
 
 
 
