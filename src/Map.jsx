@@ -106,27 +106,6 @@ initAutocomplete() {
       })
       }
 
-  // initMap() {
-  //   //const self = this;
-
-  //   var pyrmont = {lat: -33.8665433, lng: 151.1956316}
-  //   const node = ReactDOM.findDOMNode(this.refs.map);
-
-  //   this.state.map = new this.props.google.maps.Map(node, {
-  //     center: pyrmont,
-  //     zoom: 10
-  //   });
-//     this.state.infowindow = new this.props.google.maps.InfoWindow();
-
-//   var service = new this.props.google.maps.places.PlacesService(this.state.map);
-
-//   service.textSearch({
-//     query: 'breweries',
-//     location: pyrmont,
-//     radius: 1000
-
-//   }, this.callback);
-// }
 
   callback(results, status) {
     //console.log('results', results, status)

@@ -1,8 +1,3 @@
-.App {
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-}
 
 .brewery-card {
   margin: 50px;
@@ -174,6 +169,7 @@
 .input-group {
   padding: 25px;
   width: 100%;
+  text-align: center;
 }
 
 .beer-label {
@@ -228,6 +224,7 @@
   margin: 5px;
   max-width: 45%;
   min-width: 45%;
+  text-align: center;
 }
 
 .brewer-beer-name {
