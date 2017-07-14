@@ -130,9 +130,7 @@ export class Container extends React.Component {
 
     }
     })
-
   }
-
 
   render() {
 
@@ -142,7 +140,7 @@ export class Container extends React.Component {
     return (
 
       <div className="map-card">
-       <div className="input-group">
+      {/* <div className="input-group">
          <MuiThemeProvider muiTheme={getMuiTheme()}>
            <AutoComplete
              hintText          = "Input beer..."
@@ -155,12 +153,12 @@ export class Container extends React.Component {
              />
            </MuiThemeProvider>
         </div>
-      <div >
+      <div >*/}
           <Map
             google={this.props.google}
             />
       </div>
-    </div>
+
     )
   }
 }

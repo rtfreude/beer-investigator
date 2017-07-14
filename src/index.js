@@ -15,9 +15,9 @@ registerServiceWorker();*/
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={App} />
-    <Route path="/container" component={Container} />
-    <Route path="/beercard" component={BeerCard} />
-    <Route path="/brewerycard" component={BreweryCard} />
+    <Route path="/brewerysearch" component={Container} />
+    <Route path="/beerinfo" component={BeerCard} />
+    <Route path="/breweryinfo" component={BreweryCard} />
   </Router>
   ,
   document.getElementById('root')

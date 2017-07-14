@@ -1,3 +1,11 @@
+.land-btn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.land-container {
+  background-color: #bd9553;
+}
 
 .brewery-card {
   margin: 50px;
@@ -26,9 +34,8 @@
 .map-card {
   margin: 50px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
-
   min-width: 20%;
   -webkit-box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
   -moz-box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
@@ -40,8 +47,8 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  width: 600px;
-  height: 600px;
+  width: 900px;
+  height: 900px;
   -webkit-box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
   -moz-box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
   box-shadow: 10px 6px 37px 1px rgba(0,0,0,0.46);
@@ -193,6 +200,13 @@
   flex-direction: row;
 }
 
+.landing-highlight {
+  display: inline-table;
+  background-color: rgba(162,107,75,0.65);
+  padding:30px;
+  border-radius: 15px;
+
+}
 
 *****Brewery Beer Card*****
 .brewer-beer-container {

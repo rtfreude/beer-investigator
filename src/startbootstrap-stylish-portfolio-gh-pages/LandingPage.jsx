@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router'
 import $ from 'jquery'
 
 
 class LandingPage extends Component {
 
-constructor(props) {
-    super(props);
-    this.state = {
-        active: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            active: false
+        }
+
+        this.handleClick = this.handleClick.bind(this);
+
     }
-
-    this.handleClick = this.handleClick.bind(this);
-
-}
 
     handleClick(e) {
         e.preventDefault();
@@ -29,19 +30,19 @@ render() {
         <ul className="sidebar-nav">
             <a id="menu-close" href="#" className="btn btn-light btn-lg pull-right toggle" onClick={this.handleClick}><i className="fa fa-times"></i></a>
             <li className="sidebar-brand">
-                <a href="#top" onClick={this.handleClick}>Start Bootstrap</a>
+                <Link to="/">Beer Investigator</Link>
             </li>
             <li>
-                <a href="#top" onClick={this.handleClick}>Home</a>
+                <Link to="/brewerysearch">Locate Breweries</Link>
             </li>
             <li>
-                <a href="#about" onClick={this.handleClick}>About</a>
+                <Link to="/breweryinfo">Investigate Brewery</Link>
+            </li>
+            <li>
+                <Link to="/beerinfo">Investigate Beer</Link>
             </li>
             <li>
                 <a href="#services" onClick={this.handleClick}>Services</a>
-            </li>
-            <li>
-                <a href="#portfolio" onClick={this.handleClick}>Portfolio</a>
             </li>
             <li>
                 <a href="#contact" onClick={this.handleClick}>Contact</a>
@@ -50,16 +51,21 @@ render() {
     </nav>
 
 
+
     <header id="top" className="header">
         <div className="text-vertical-center">
-            <h1>Start Bootstrap</h1>
-            <h3>Free Bootstrap Themes &amp; Templates</h3>
-            <br />
-            <a href="#about" className="btn btn-dark btn-lg">Find Out More</a>
+            <div className="landing-highlight">
+                <h1 style={{color: "rgb(255, 248, 174)"}}>Beer Investigator</h1>
+                <h3 style={{color: "rgb(255, 255, 255)"}}>Research and locate your favorite breweries and beer!</h3>
+                <br />
+                {/*<a href="#about" className="btn btn-dark btn-lg">Find Out More</a>*/}
+                <a href="#" className="btn btn-lg btn-light land-btn">Login!</a>
+                <a href="#" className="btn btn-lg btn-light land-btn">Register Now!</a>
+            </div>
         </div>
     </header>
 
-
+{/*
     <section id="about" className="about">
         <div className="container">
             <div className="row">
@@ -72,9 +78,9 @@ render() {
         </div>
 
     </section>
+*/}
 
-
-    <section id="services" className="services bg-primary">
+    <section id="services" className="services bg-primary land-container">
         <div className="container">
             <div className="row text-center">
                 <div className="col-lg-10 col-lg-offset-1">
@@ -85,12 +91,12 @@ render() {
                             <div className="service-item">
                                 <span className="fa-stack fa-4x">
                                 <i className="fa fa-circle fa-stack-2x"></i>
-                                <i className="fa fa-cloud fa-stack-1x text-primary"></i>
+                                <i className="fa fa-beer fa-stack-1x text-primary"></i>
                             </span>
                                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>Investigate Beer</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Reaserch and learn about your favorite beers by browsing our library of over 60000 beers!</p>
                                 <a href="#" className="btn btn-light">Learn More</a>
                             </div>
                         </div>
@@ -98,12 +104,12 @@ render() {
                             <div className="service-item">
                                 <span className="fa-stack fa-4x">
                                 <i className="fa fa-circle fa-stack-2x"></i>
-                                <i className="fa fa-compass fa-stack-1x text-primary"></i>
+                                <i className="fa fa-home fa-stack-1x text-primary"></i>
                             </span>
                                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>Investigate Breweries</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Search for breweries from around the world to learn about their history and the beer the make.</p>
                                 <a href="#" className="btn btn-light">Learn More</a>
                             </div>
                         </div>
@@ -111,12 +117,12 @@ render() {
                             <div className="service-item">
                                 <span className="fa-stack fa-4x">
                                 <i className="fa fa-circle fa-stack-2x"></i>
-                                <i className="fa fa-flask fa-stack-1x text-primary"></i>
+                                <i className="fa fa-binoculars fa-stack-1x text-primary"></i>
                             </span>
                                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>Locate Breweries</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Quickly find breweries around the world by searching our massive brewery database.</p>
                                 <a href="#" className="btn btn-light">Learn More</a>
                             </div>
                         </div>
@@ -124,12 +130,12 @@ render() {
                             <div className="service-item">
                                 <span className="fa-stack fa-4x">
                                 <i className="fa fa-circle fa-stack-2x"></i>
-                                <i className="fa fa-shield fa-stack-1x text-primary"></i>
+                                <i className="fa fa-bar-chart fa-stack-1x text-primary"></i>
                             </span>
                                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>Beer Tracker</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Our beer tracker will allow you to keep track of everything 'beer' with your own personal database.</p>
                                 <a href="#" className="btn btn-light">Learn More</a>
                             </div>
                         </div>
@@ -143,14 +149,14 @@ render() {
 
     </section>
 
-
+{/*
     <aside className="callout">
         <div className="text-vertical-center">
             <h1>Vertically Centered Text</h1>
         </div>
     </aside>
-
-
+*/}
+{/*
     <section id="portfolio" className="portfolio">
         <div className="container">
             <div className="row">
@@ -196,8 +202,8 @@ render() {
         </div>
 
     </section>
-
-
+*/}
+    {/*
     <aside className="call-to-action bg-primary">
         <div className="container">
             <div className="row">
@@ -209,8 +215,8 @@ render() {
             </div>
         </div>
     </aside>
-
-
+    */}
+    {/*
     <section id="contact" className="map">
         <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
         <br />
@@ -218,19 +224,19 @@ render() {
             <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
         </small>
     </section>
-
+*/}
 
     <footer>
-        <div className="container">
+        <div id="contact" className="container">
             <div className="row">
                 <div className="col-lg-10 col-lg-offset-1 text-center">
-                    <h4><strong>Start Bootstrap</strong>
+                    <h4><strong>Beer Investigator</strong>
                     </h4>
-                    <p>3481 Melrose Place
-                        <br />Beverly Hills, CA 90210</p>
+                    <p>1285 Brewery Place
+                        <br />Hops, WI 54487</p>
                     <ul className="list-unstyled">
-                        <li><i className="fa fa-phone fa-fw"></i> (123) 456-7890</li>
-                        <li><i className="fa fa-envelope-o fa-fw"></i> <a href="mailto:name@example.com">name@example.com</a>
+                        <li><i className="fa fa-phone fa-fw"></i> (920) 217-1116</li>
+                        <li><i className="fa fa-envelope-o fa-fw"></i> <a href="mailto:name@example.com">freudehack@gmail.com</a>
                         </li>
                     </ul>
                     <br />
@@ -242,11 +248,11 @@ render() {
                             <a href="#"><i className="fa fa-twitter fa-fw fa-3x"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i className="fa fa-dribbble fa-fw fa-3x"></i></a>
+                            <a href="#"><i className="fa fa-github fa-fw fa-3x"></i></a>
                         </li>
                     </ul>
                     <hr className="small" />
-                    <p className="text-muted">Copyright &copy; Your Website 2014</p>
+                    <p className="text-muted">Copyright &copy; Beer Investigator 2017</p>
                 </div>
             </div>
         </div>
